@@ -40,7 +40,18 @@ class RedBlackTree:
                 node.right_node = Node(data, node)
                 self.settle_violation(node.right_node)
 
+    def traverse(self):
+        if self.root:
+            self.in_order_traversal()
 
+    def in_order_traversal(self, node):
+        if node.left_node:
+            self.in_order_traversal(node.left_node)
+
+        print(node.data)
+
+        if node.right_node:
+            self.in_order_traversal(node.right_node)
 
 
 
