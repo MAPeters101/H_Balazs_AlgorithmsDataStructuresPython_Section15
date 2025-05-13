@@ -56,7 +56,7 @@ class RedBlackTree:
     def rotate_right(self, node):
         print("Rotating to the right on node ", node.data)
 
-        temp_left_node = node.left
+        temp_left_node = node.left_node
         t = temp_left_node.right_node
 
         temp_left_node.right_node = node
@@ -77,6 +77,31 @@ class RedBlackTree:
 
         if node == self.root:
             self.root = temp_left_node
+
+    def rotate_left(self, node):
+        print("Rotating to the left on node ", node.data)
+
+        temp_right_node = node.left_node
+        t = temp_right_node.left_node
+
+        temp_right_node.left_node = node
+        node.right_node = t
+
+        if t is not None:
+            t.parent = node
+
+        temp_parent = node.parent
+        node.parent = temp_right_node
+        temp_right_node.parent = temp_parent
+
+        if temp_right_node.parent is not None and temp_right_node.parent.left_node == node:
+            temp_right_node.parent.left_node = temp_right_node
+
+        if temp_right_node.parent is not None and temp_right_node.parent.right_node == node:
+            temp_right_node.parent.right_node = temp_right_node
+
+        if node == self.root:
+            self.root = temp_right_node
 
 
 
