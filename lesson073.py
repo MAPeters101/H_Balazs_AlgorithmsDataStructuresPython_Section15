@@ -184,6 +184,3 @@ if __name__ == '__main__':
     tree.insert(23)
     tree.insert(12)
 
-
-
-
