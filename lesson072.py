@@ -71,27 +71,40 @@ class RedBlackTree:
                     print("Re-color %s to BLACK" % parent_node.data)
                     print("Re-color %s to RED" % grand_parent_node.data)
                     self.rotate_right(grand_parent_node)
+            else:
+                uncle = grand_parent_node.left_node
 
+                if uncle and self.is_red(uncle):
+                    # case 1 and case 4
+                    print("Re-coloring node %s to RED" % grand_parent_node.data)
+                    grand_parent_node.color = Color.RED
+                    print("Re-coloring node %s to BLACK" % parent_node.data)
+                    parent_node.color = Color.BLACK
+                    uncle.color = Color.BLACK
+                    node = grand_parent_node
+                else:
+                    # case 2: uncle node is black and node is a right child
+                    if node == parent_node.left_node:
+                        self.rotate_right(parent_node)
+                        node = parent_node
+                        parent_node = node.parent
 
+                    # case 3
+                    parent_node.color = Color.BLACK
+                    grand_parent_node.color = Color.RED
+                    print("Re-color %s to BLACK" % parent_node.data)
+                    print("Re-color %s to RED" % grand_parent_node.data)
+                    self.rotate_left(grand_parent_node)
 
-
-
-
-
-
-
-
-
-
-
+        if self.is_red(self.root):
+            print("Recoloring the root to black...")
+            self.root.color = Color.BLACK
 
     def is_red(self, node):
         if node is None:
             return False
 
         return node.color == Color.RED
-
-
 
     def traverse(self):
         if self.root:
